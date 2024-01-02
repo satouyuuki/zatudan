@@ -1,10 +1,14 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import Button from '@/components/Btn'
-import Article from '@/components/Article';
+import type {
+    InferGetStaticPropsType,
+    GetStaticProps,
+    GetStaticPaths,
+} from 'next'
 import { CATEGORIES } from '@/lib/constants';
+import Button from '@/components/Btn';
+import Article from '@/components/Article';
 import { getNewsExtractCategory } from '@/lib/api';
 
-export default function Index({
+export default function Category({
     articles,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
     return (
@@ -20,11 +24,19 @@ export default function Index({
                 ))}
             </div>
         </>
+
     )
 }
 
-export const getStaticProps = (async () => {
-    const articles = await getNewsExtractCategory();
+export const getStaticPaths = (async () => {
+    const paths = Object.keys(CATEGORIES).map(category => ({
+        params: { category }
+    }));
+    return { paths, fallback: false }
+}) satisfies GetStaticPaths
+
+export const getStaticProps = (async ({ params }) => {
+    const articles = await getNewsExtractCategory(params?.category as string);
     return {
         props: {
             articles
