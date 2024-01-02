@@ -25,6 +25,7 @@ export async function getNewsExtractCategory(category = 'top') {
             const jsonData = await fs.readFile(apiUrl, 'utf-8');
             data = JSON.parse(jsonData);
         } else {
+            console.log("debugger log apiUrl: ", apiUrl);
             const response = await fetch(apiUrl);
             data = await response.json();
         }
