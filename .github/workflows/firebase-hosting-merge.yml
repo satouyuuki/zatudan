@@ -17,3 +17,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GCP_PLAYGROUND_406209 }}'
           channelId: live
           projectId: gcp-playground-406209
+          entryPoint: ./front/zatudan-front
