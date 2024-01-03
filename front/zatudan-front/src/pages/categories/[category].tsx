@@ -29,9 +29,11 @@ export default function Category({
 }
 
 export const getStaticPaths = (async () => {
-    const paths = Object.keys(CATEGORIES).map(category => ({
-        params: { category }
-    }));
+    const paths = Object.keys(CATEGORIES)
+        .filter(category => category !== "top")
+        .map(category => ({
+            params: { category }
+        }));
     return { paths, fallback: false }
 }) satisfies GetStaticPaths
 

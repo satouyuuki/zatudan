@@ -1,11 +1,14 @@
 import { useRouter } from 'next/router';
 import { ButtonProps } from '@/types';
+import { CATEGORIES } from '@/lib/constants';
 
 const Btn = ({ id, name }: ButtonProps) => {
     const router = useRouter();
 
     const handleButtonClick = () => {
-        router.push(`/categories/${id}`);
+        name === CATEGORIES.top
+            ? router.push('/')
+            : router.push(`/categories/${id}`);
     };
 
     return (
@@ -13,6 +16,6 @@ const Btn = ({ id, name }: ButtonProps) => {
             {name}
         </button>
     )
-} 
+}
 
 export default Btn; 
