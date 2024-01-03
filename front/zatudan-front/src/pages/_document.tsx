@@ -1,4 +1,6 @@
+import { GA_MEASUREMENT_ID } from '@/lib/gtag'
 import { Html, Head, Main, NextScript } from 'next/document'
+import Script from 'next/script'
 
 export default function Document() {
   return (
@@ -18,10 +20,6 @@ export default function Document() {
         <meta name="twitter:title" content="雑談ニュース | 新鮮な話題を毎日更新！" />
         <meta name="twitter:description" content="雑談のネタになるニュースを定期的にお届け。ビジネス、スポーツ、テクノロジー、トレンドなど幅広い話題をカバーします。" />
         <meta name="twitter:image" content="/images/zatudanapp.png"></meta>
-        {process.env.NODE_ENV === "production" && (
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5709217848867200"
-            crossOrigin="anonymous"></script>
-        )}
         <meta name="google-adsense-account" content="ca-pub-5709217848867200"></meta>
       </Head>
       <body className="bg-gray-100">
@@ -35,6 +33,31 @@ export default function Document() {
           </div>
         </footer>
         <NextScript />
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <Script
+              async
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5709217848867200"
+              crossOrigin="anonymous" />
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', '${GA_MEASUREMENT_ID}');
+`,
+              }}
+            />
+          </>
+        )}
       </body>
     </Html>
   )
