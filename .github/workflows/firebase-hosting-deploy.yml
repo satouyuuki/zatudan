@@ -2,10 +2,15 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on cron
-'on': 
+on:
   schedule:
-    - cron: '0 22 * * *'  # 7amに実行
-
+    - cron: '0 22 * * *'  # 毎日7amに実行
+  pull_request:
+    branches:
+      - main
+  # push:
+  #   branches:
+  #     - main
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -20,11 +25,13 @@ jobs:
         env:
           NEWS_API_URL: ${{ secrets.NEWS_API_URL }}
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
         run: |
           cd ./front/zatudan-front
           cat << EOF > .env.production
           NEWS_API_URL=${NEWS_API_URL}
           NEWS_API_KEY=${NEWS_API_KEY}
+          NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID}
           EOF
           rm .env
       - name: Install Dependencies and Build
