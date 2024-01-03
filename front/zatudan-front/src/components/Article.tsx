@@ -8,6 +8,13 @@ const Article = ({ article }: { article: ArticleProps }) => {
         <p className="text-gray-600 mb-4">{article.description}</p>
         <p className="text-sm text-blue-500 hover:underline"><a href={article.link} target='_blank'>もっと見る</a></p>
         <p className="text-gray-400 text-xs">公開日: {jstPubDate}</p>
+        <div className="mt-2">
+            <div className="flex flex-wrap gap-2">
+                {article.country.map((country, i) => (
+                    <span key={i} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">{country}</span>
+                ))}
+            </div>
+        </div>
     </div>
 }
 
