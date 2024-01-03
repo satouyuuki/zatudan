@@ -5,6 +5,10 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <link rel="icon" href="/favicon/favicon.ico" />
+        {process.env.NODE_ENV === "production" && (
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5709217848867200"
+            crossOrigin="anonymous"></script>
+        )}
         <meta name="google-adsense-account" content="ca-pub-5709217848867200"></meta>
       </Head>
       <body className="bg-gray-100">
