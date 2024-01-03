@@ -4,6 +4,7 @@ export type ArticleProps = {
     link: string
     description: string
     pubDate: string
+    country: string[]
 }
 
 export type ButtonProps = {

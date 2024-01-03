@@ -3,4 +3,5 @@ export const CATEGORIES = {
     business: "ビジネス",
     sports: "スポーツ",
     technology: "テクノロジー",
+    world: "ワールド",
 } as const;

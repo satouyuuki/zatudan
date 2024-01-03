@@ -38,7 +38,11 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 export const getStaticProps = (async ({ params }) => {
-    const articles = await getNewsExtractCategory(params?.category as string);
+    const articles = await getNewsExtractCategory({
+        category: params?.category as string,
+        countly: params?.category === "world" ? undefined : "jp",
+        language: params?.category === "world" ? "en" : "jp",
+    });
     return {
         props: {
             articles
