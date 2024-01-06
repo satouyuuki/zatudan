@@ -1,5 +1,5 @@
 export function splitSentenceByColon(sentence: string) {
-    const colonIndex = sentence.indexOf("：");
+    const colonIndex = sentence.search(/[:：]/u);
 
     if (colonIndex !== -1) {
         const speaker = sentence.substring(0, colonIndex);

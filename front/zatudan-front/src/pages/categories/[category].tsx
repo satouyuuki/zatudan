@@ -13,7 +13,7 @@ export default function Category({
     articles,
     content
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-    const array = content?.split("\n\n").map(a => splitSentenceByColon(a));
+    const array = content?.split(/\n\n|\n/).map(a => splitSentenceByColon(a));
     return (
         <Tabs>
             <Tab tabType="conversations" key="conversations">
