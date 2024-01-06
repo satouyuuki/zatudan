@@ -7,15 +7,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body className="bg-gray-100">
-        <header className="bg-gray-800 text-white text-center py-4">
-          <h1 className="text-3xl font-bold">雑談ニュース</h1>
-        </header>
         <Main />
-        <footer className="bg-gray-800 text-gray-300 py-4">
-          <div className="container mx-auto text-center">
-            <p>&copy; 2024 雑談ニュース. All Rights Reserved.</p>
-          </div>
-        </footer>
         <NextScript />
         {process.env.NODE_ENV === "production" && (
           <>

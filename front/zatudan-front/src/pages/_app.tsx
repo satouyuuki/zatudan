@@ -2,6 +2,8 @@ import { AppProps } from 'next/app'
 import '@/globals.css'
 import { Inter } from 'next/font/google'
 import Head from 'next/head'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,9 +27,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="twitter:image" content="/images/zatudanapp.png"></meta>
                 <meta name="google-adsense-account" content="ca-pub-5709217848867200"></meta>
             </Head>
+            <Header />
             <div className={`${inter.className} container mx-auto py-8`}>
                 <Component {...pageProps} />
             </div>
+            <Footer />
         </>
     )
 }

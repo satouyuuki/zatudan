@@ -1,6 +1,7 @@
 import path from 'path';
 import fs from 'fs/promises';
 import { Res } from '@/types';
+import OpenAI from "openai";
 
 type NewsParams = {
     category: string;
@@ -27,7 +28,6 @@ export async function getNewsExtractCategory({
             url.searchParams.append('country', countly);
         }
         url.searchParams.append('language', language);
-        url.searchParams.append('prioritydomain', 'top');
         url.searchParams.append('category', category);
         apiUrl = url.toString();
     } else {
@@ -50,4 +50,28 @@ export async function getNewsExtractCategory({
         console.error('Error fetching data:', error);
     }
     return data.results
+}
+
+type GptParams = {
+    content: string;
+}
+
+export async function getContentFromGpt({
+    content,
+}: GptParams) {
+    if (process.env.NODE_ENV === 'production') {
+        const openai = new OpenAI();
+        const completion = await openai.chat.completions.create({
+            messages: [
+                { role: "system", content: "話してる人と内容の区切りは:です。話してる人は私とAです。" },
+                { role: "user", content: `次のニュースを知り合いのAと雑談する風に変換してください。${content}` }
+            ],
+            model: "gpt-3.5-turbo",
+        });
+        return completion.choices[0].message.content;
+    }
+    const apiUrl = path.join(process.cwd(), process.env.OPENAI_API_KEY!);
+    const jsonData = await fs.readFile(apiUrl, 'utf-8');
+    const completion = JSON.parse(jsonData);
+    return completion.choices[0].message.content as string;
 }
