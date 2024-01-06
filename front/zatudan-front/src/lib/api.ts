@@ -68,6 +68,8 @@ export async function getContentFromGpt({
             ],
             model: "gpt-3.5-turbo",
         });
+        console.log("content: ", content);
+        console.log(JSON.stringify(completion.choices));
         return completion.choices[0].message.content;
     }
     const apiUrl = path.join(process.cwd(), process.env.OPENAI_API_KEY!);
